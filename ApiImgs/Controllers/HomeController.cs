@@ -52,48 +52,54 @@ namespace ApiImgs.Controllers
         [HttpPost]
         public async Task<ActionResult> AddImg()
         {
-            var files = Request.Form.Files;
+            var file = Request.Form.Files[0]; // Отримати перший вибраний файл
 
-            for (int i = 0; i < files.Count; i++)
+            var maxSize = 5 * 1024 * 1024; // Максимальний допустимий розмір файлу (5 МБ)
+
+            if (file.Length > maxSize)
             {
-                try
-                {
-                    var image = new Models.Image();
+                return BadRequest("Розмір файлу перевищує максимально допустимий розмір (5 МБ).");
 
-                    var uploadPath = $@"{Directory.GetCurrentDirectory()}\wwwroot\Photos";
-
-                    Directory.CreateDirectory(uploadPath);
-
-                    image.Path = $@"{uploadPath}\{files[i].FileName}";
-
-                    using (var fs = new FileStream(image.Path, FileMode.Create))
-                    {
-                        await files[i].CopyToAsync(fs);
-                    }
-
-                    image.Path = image.Path.Split("wwwroot")[1];
-
-
-
-                    await context.Images.AddAsync(image);
-                    await context.SaveChangesAsync();
-
-                }
-                catch (Exception exc)
-                {
-                    Console.WriteLine(exc.Message);
-                }
             }
+                var image = new Models.Image();
 
-            return Redirect("Index");
+               
+                    try
+                    {
+                        var uploadPath = $@"{Directory.GetCurrentDirectory()}\wwwroot\Photos";
 
+                        Directory.CreateDirectory(uploadPath);
+
+                        image.Path = $@"{uploadPath}\{file.FileName}";
+
+                        using (var fs = new FileStream(image.Path, FileMode.Create))
+                        {
+                            await file.CopyToAsync(fs);
+                        }
+
+                        image.Path = image.Path.Split("wwwroot")[1];
+
+
+
+                        await context.Images.AddAsync(image);
+                        await context.SaveChangesAsync();
+
+                    }
+                    catch (Exception exc)
+                    {
+                        Console.WriteLine(exc.Message);
+                    }
+                            
+                return Redirect("Index");
         }
+
+
         //[HttpPost]
-        ////public IActionResult AddImg([FromBody] ImageUrlRequest request)
-        //public async Task<ActionResult> AddImg([FromBody] ImageUrlRequest request)
+        //public async Task<IActionResult> AddImg()
         //{
-        //    //lock (lockObject)
-        //    //{
+        //    lock (lockObject)
+        //    {
+        //        ImageUrlRequest request=new ImageUrlRequest();
         //        // Перевірка розміру файлу
         //        if (request.Url.Length > 5 * 1024 * 1024)
         //        {
@@ -105,35 +111,23 @@ namespace ApiImgs.Controllers
         //            var image = new Models.Image();
 
         //            var uploadPath = $@"{Directory.GetCurrentDirectory()}\wwwroot\Photos";
-
         //            Directory.CreateDirectory(uploadPath);
 
         //            image.Path = $@"{uploadPath}\{Guid.NewGuid().ToString("N")}.jpg";
 
         //            using (var fs = new FileStream(image.Path, FileMode.Create))
         //            {
-        //                // Читання даних з потоку запиту
-        //                using (var reader = new StreamReader(Request.Body))
+        //                using (var webClient = new WebClient())
         //                {
-        //                    var body = reader.ReadToEnd();
-
-        //                    // Розпізнавання даних JSON з тіла запиту
-        //                    var requestData = JsonConvert.DeserializeObject<ImageUrlRequest>(body);
-        //                    var imageUrl = requestData.Url;
-
-        //                    // Завантаження зображення по URL
-        //                    using (var webClient = new WebClient())
-        //                    {
-        //                        var imageBytes = webClient.DownloadData(imageUrl);
-        //                        fs.Write(imageBytes, 0, imageBytes.Length);
-        //                    }
+        //                    var imageBytes = webClient.DownloadData(request.Url);
+        //                    fs.WriteAsync(imageBytes, 0, imageBytes.Length);
         //                }
         //            }
 
         //            image.Path = image.Path.Split("wwwroot")[1];
 
-        //            context.Images.AddAsync(image);
-        //            context.SaveChangesAsync();
+        //             context.Images.AddAsync(image);
+        //             context.SaveChangesAsync();
 
         //            return RedirectToAction("Index");
         //        }
@@ -141,9 +135,8 @@ namespace ApiImgs.Controllers
         //        {
         //            return BadRequest("Не вдалося зберегти зображення на сервері.");
         //        }
-        //    //}
+        //    }
         //}
-
 
 
         [HttpGet]
