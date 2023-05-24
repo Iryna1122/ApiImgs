@@ -1,0 +1,45 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Image
+
+@if (Model != null)
+{
+    <table class="table table-success">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Photo</th>
+                                
+                <th>Edit</th>
+                <th>Delete</th>
+
+            </tr>
+        </thead>
+
+        <tbody>
+            
+                <tr>
+                    <td>@Model.Id</td>
+                    <td><img src="@Url.Content(@Model.Path)" alt="Image"></td>
+                   
+                    <td>
+                    <form asp-action="ImageEdit" method="GET" asp-route-id="@Model.Id">
+                            <button class="btn btn-info" type="submit">Edit</button>
+                        </form>
+                    </td>
+                    <td>
+                    <form asp-action="ImageDelete" method="POST" asp-route-id="@Model.Id">
+                            <button class="btn btn-dark" type="submit">Delete</button>
+                        </form>
+                    </td>
+
+                </tr>
+            
+        </tbody>
+
+
+    </table>
+}

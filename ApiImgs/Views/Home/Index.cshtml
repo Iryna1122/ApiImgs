@@ -1,0 +1,85 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+ @model IEnumerable<Image>
+
+<div class="text-center">
+    <h1 class="display-4">Add new image</h1>
+    
+
+    <form asp-controller="Home" method="POST" asp-action="AddImg" enctype="multipart/form-data">
+
+        
+        <p>
+            <label class="form-label">PHOTOS:</label>
+            @*   <input class="form-control col-4" name="file1" type="file" id="formFileMultiple" multiple>*@
+
+            <input name="file1" class="form-control  col-4" type="file" id="formFileDisabled">
+            @*<input name="file2" class="form-control  col-4" type="file" id="formFileDisabled">
+            
+            <input name="file5" class="form-control  col-4" type="file" id="formFileDisabled" />*@
+        </p><br />
+
+
+        <button type="submit" class="btn btn-primary">Save Image</button>
+    </form>
+    <hr />
+
+    <h2>Images:</h2>
+   @* @foreach (var image in Model)
+    {
+    <div>
+        <img src="@Url.Content(image.Path)" alt="Image">
+    </div>
+    }*@
+
+
+    @if (Model != null)
+    {
+        <table class="table table-success">
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Photo</th>
+                    
+                    <th>Details</th>
+                    <th>Edit</th>
+                    <th>Delete</th>
+
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var img in Model)
+                {
+                    <tr>
+                        <td>@img.Id</td>
+                        <td><img src="@Url.Content(img.Path)" alt="Image"></td>
+                        <td>
+                            <form asp-action="ImageInfo" method="GET" asp-route-id="@img.Id">
+                                <button class="btn btn-danger" type="submit">Info</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="ImageEdit" method="GET" asp-route-id="@img.Id">
+                                <button class="btn btn-outline-success" type="submit">Edit</button>
+                            </form>
+                        </td>
+                        <td>
+                            <form asp-action="ImageDelete" method="POST" asp-route-id="@img.Id">
+                                <button class="btn btn-outline-dark" type="submit">Delete</button>
+                            </form>
+                        </td>
+
+                    </tr>
+                }
+            </tbody>
+
+
+        </table>
+    }
+
+
+
+     
+</div>

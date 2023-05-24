@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33205.214
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApiImgs", "ApiImgs\ApiImgs.csproj", "{8B709BA3-2918-4034-9B7E-0E8EB615FFBC}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B709BA3-2918-4034-9B7E-0E8EB615FFBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B709BA3-2918-4034-9B7E-0E8EB615FFBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B709BA3-2918-4034-9B7E-0E8EB615FFBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B709BA3-2918-4034-9B7E-0E8EB615FFBC}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {60D43630-7B6F-49DD-B6C2-3517824AF3CB}
+	EndGlobalSection
+EndGlobal

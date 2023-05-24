@@ -1,0 +1,21 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model Image
+
+<h2 class="display-4">Edit Image</h2>
+<form asp-controller="Home" method="POST" asp-action="ImageEdit2" enctype="multipart/form-data" asp-route-id="@Model.Id" >
+
+    <p>
+        <label class="form-label">PHOTO:</label>
+    
+        <input class="form-control  col-4" name="file1" type="file" id="formFileDisabled" >
+        
+    </p><br />
+
+
+    <input type="submit" class="btn btn-primary" value="Save Image">
+
+</form>
