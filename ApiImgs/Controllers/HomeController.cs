@@ -52,9 +52,9 @@ namespace ApiImgs.Controllers
         [HttpPost]
         public async Task<ActionResult> AddImg()
         {
-            var file = Request.Form.Files[0]; // Отримати перший вибраний файл
+            var file = Request.Form.Files[0]; 
 
-            var maxSize = 5 * 1024 * 1024; // Максимальний допустимий розмір файлу (5 МБ)
+            var maxSize = 5 * 1024 * 1024;
 
             if (file.Length > maxSize)
             {
@@ -94,50 +94,7 @@ namespace ApiImgs.Controllers
         }
 
 
-        //[HttpPost]
-        //public async Task<IActionResult> AddImg()
-        //{
-        //    lock (lockObject)
-        //    {
-        //        ImageUrlRequest request=new ImageUrlRequest();
-        //        // Перевірка розміру файлу
-        //        if (request.Url.Length > 5 * 1024 * 1024)
-        //        {
-        //            return BadRequest("Розмір файлу перевищує максимально допустимий розмір (5 МБ).");
-        //        }
-
-        //        try
-        //        {
-        //            var image = new Models.Image();
-
-        //            var uploadPath = $@"{Directory.GetCurrentDirectory()}\wwwroot\Photos";
-        //            Directory.CreateDirectory(uploadPath);
-
-        //            image.Path = $@"{uploadPath}\{Guid.NewGuid().ToString("N")}.jpg";
-
-        //            using (var fs = new FileStream(image.Path, FileMode.Create))
-        //            {
-        //                using (var webClient = new WebClient())
-        //                {
-        //                    var imageBytes = webClient.DownloadData(request.Url);
-        //                    fs.WriteAsync(imageBytes, 0, imageBytes.Length);
-        //                }
-        //            }
-
-        //            image.Path = image.Path.Split("wwwroot")[1];
-
-        //             context.Images.AddAsync(image);
-        //             context.SaveChangesAsync();
-
-        //            return RedirectToAction("Index");
-        //        }
-        //        catch (Exception exc)
-        //        {
-        //            return BadRequest("Не вдалося зберегти зображення на сервері.");
-        //        }
-        //    }
-        //}
-
+       
 
         [HttpGet]
         public async Task<IActionResult> ImageInfo(int id)
